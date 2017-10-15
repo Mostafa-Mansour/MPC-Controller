@@ -9,14 +9,14 @@ Self-Driving Car Engineer Nanodegree Program
 MPC is a controller used to minimize the error between a predicted trajectory and a reference one by minimizing a cost function. Unlike, PID controller which relies on kinematic models of the process, MPC relies on dynamic models of the process. The main task of MPC controller is solving an optimization problem in which the control inputs (wheel angel and acceleration) should be chosen in such a way to give a predicted trajectory close to the reference one.
 - The MPC controller consists of four components:
 * Vehicle Model, dynamic model, which consists of a 6 component state vector as follows:
-** x: x-axis of car position
-** y: y-axis of car position
-** psi: orientation
-** v: car velocity
-** cte: cross track error (offset from the lane center)
-** epsi: orientation error
+    * x: x-axis of car position
+    * y: y-axis of car position
+    * psi: orientation
+    * v: car velocity
+    * cte: cross track error (offset from the lane center)
+    * epsi: orientation error
 
-* constrains of the input signals, i.e. constraints on heading angel and acceleration. In our case the acceleration has two values {-1,1} and the heading angel is [-25,25].
+* constrains of the input signals, i.e. constraints on heading angel and acceleration. In our case the acceleration has two values {-1,1} and the heading angel is [-0.436332,0.436332].
 
 * Trajectory: The predicted one based on the input value and the current state of a car. To get it a prediction horizon (T) should be determined and divided into N steps with a time step dt. In our case, after several tries, I found that with 12 step and 0.1 step size, I can get good results.
 
@@ -41,7 +41,7 @@ The waypoints are transformed  to the vehicle's perspective at lines 108-113 in 
 Simply, I used the previous actuators value at previous time step. Lines 116-118 in [MPC.cpp](MPC.cpp).
 
 
-** Finally, my code is based, basically, on the solution of Mind the line quiz in MPC lesson.
+* Finally, my code is based, basically, on the solution of Mind the line quiz in MPC lesson.
 
 ___
 
