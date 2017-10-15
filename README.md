@@ -3,6 +3,48 @@ Self-Driving Car Engineer Nanodegree Program
 
 ---
 
+
+### Overview
+
+MPC is a controller used to minimize the error between a predicted trajectory and a reference one by minimizing a cost function. Unlike, PID controller which relies on kinematic models of the process, MPC relies on dynamic models of the process. The main task of MPC controller is solving an optimization problem in which the control inputs (wheel angel and acceleration) should be chosen in such a way to give a predicted trajectory close to the reference one.
+- The MPC controller consists of four components:
+* Vehicle Model, dynamic model, which consists of a 6 component state vector as follows:
+** x: x-axis of car position
+** y: y-axis of car position
+** psi: orientation
+** v: car velocity
+** cte: cross track error (offset from the lane center)
+** epsi: orientation error
+
+* constrains of the input signals, i.e. constraints on heading angel and acceleration. In our case the acceleration has two values {-1,1} and the heading angel is [-25,25].
+
+* Trajectory: The predicted one based on the input value and the current state of a car. To get it a prediction horizon (T) should be determined and divided into N steps with a time step dt. In our case, after several tries, I found that with 12 step and 0.1 step size, I can get good results.
+
+* Cost function: It is the core of the optimization problem. In any optimization problem or estimation problem, we should find, first of all, a cost function. Then, we should try to minimize it. In our case a cost function which is the sum of cross track and heading errors is used.
+
+## Rubric Points
+
+- **The Model**: *Student describes their model in detail. This includes the state, actuators and update equations.*
+
+The kinematic model is described at lines 138-143 in [MPC.cpp](MPC.cpp).
+
+- **Timestep Length and Elapsed Duration (N & dt)**: *Student discusses the reasoning behind the chosen N (timestep length) and dt (elapsed duration between timesteps) values. Additionally the student details the previous values tried.*
+
+The values chosen for N and dt are 12 and 0.1, respectively. Admittedly, I choose these values after reading some discussion in the forum
+
+- **Polynomial Fitting and MPC Preprocessing**: *A polynomial is fitted to waypoints. If the student preprocesses waypoints, the vehicle state, and/or actuators prior to the MPC procedure it is described.*
+
+The waypoints are transformed  to the vehicle's perspective at lines 108-113 in [main.cpp](main.cpp), then processed
+
+- **Model Predictive Control with Latency**: *The student implements Model Predictive Control that handles a 100 millisecond latency. Student provides details on how they deal with latency.*
+
+Simply, I used the previous actuators value at previous time step. Lines 116-118 in [MPC.cpp](MPC.cpp).
+
+
+** Finally, my code is based, basically, on the solution of Mind the line quiz in MPC lesson.
+
+___
+
 ## Dependencies
 
 * cmake >= 3.5
@@ -33,47 +75,10 @@ Self-Driving Car Engineer Nanodegree Program
 
 ## Basic Build Instructions
 
-1. Clone this repo.
-2. Make a build directory: `mkdir build && cd build`
-3. Compile: `cmake .. && make`
+1. cd build
+2. Compile: `cmake .. && make`
 4. Run it: `./mpc`.
 
-## Tips
-
-1. It's recommended to test the MPC on basic examples to see if your implementation behaves as desired. One possible example
-is the vehicle starting offset of a straight line (reference). If the MPC implementation is correct, after some number of timesteps
-(not too many) it should find and track the reference line.
-2. The `lake_track_waypoints.csv` file has the waypoints of the lake track. You could use this to fit polynomials and points and see of how well your model tracks curve. NOTE: This file might be not completely in sync with the simulator so your solution should NOT depend on it.
-3. For visualization this C++ [matplotlib wrapper](https://github.com/lava/matplotlib-cpp) could be helpful.)
-4.  Tips for setting up your environment are available [here](https://classroom.udacity.com/nanodegrees/nd013/parts/40f38239-66b6-46ec-ae68-03afd8a601c8/modules/0949fca6-b379-42af-a919-ee50aa304e6a/lessons/f758c44c-5e40-4e01-93b5-1a82aa4e044f/concepts/23d376c7-0195-4276-bdf0-e02f1f3c665d)
-5. **VM Latency:** Some students have reported differences in behavior using VM's ostensibly a result of latency.  Please let us know if issues arise as a result of a VM environment.
-
-## Editor Settings
-
-We've purposefully kept editor configuration files out of this repo in order to
-keep it as simple and environment agnostic as possible. However, we recommend
-using the following settings:
-
-* indent using spaces
-* set tab width to 2 spaces (keeps the matrices in source code aligned)
-
-## Code Style
-
-Please (do your best to) stick to [Google's C++ style guide](https://google.github.io/styleguide/cppguide.html).
-
-## Project Instructions and Rubric
-
-Note: regardless of the changes you make, your project must be buildable using
-cmake and make!
-
-More information is only accessible by people who are already enrolled in Term 2
-of CarND. If you are enrolled, see [the project page](https://classroom.udacity.com/nanodegrees/nd013/parts/40f38239-66b6-46ec-ae68-03afd8a601c8/modules/f1820894-8322-4bb3-81aa-b26b3c6dcbaf/lessons/b1ff3be0-c904-438e-aad3-2b5379f0e0c3/concepts/1a2255a0-e23c-44cf-8d41-39b8a3c8264a)
-for instructions and the project rubric.
-
-## Hints!
-
-* You don't have to follow this directory structure, but if you do, your work
-  will span all of the .cpp files here. Keep an eye out for TODOs.
 
 ## Call for IDE Profiles Pull Requests
 
