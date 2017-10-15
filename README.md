@@ -30,7 +30,7 @@ The kinematic model is described at lines 138-143 in [MPC.cpp](MPC.cpp).
 
 - **Timestep Length and Elapsed Duration (N & dt)**: *Student discusses the reasoning behind the chosen N (timestep length) and dt (elapsed duration between timesteps) values. Additionally the student details the previous values tried.*
 
-The values chosen for N and dt are 12 and 0.1, respectively. Admittedly, I choose these values after reading some discussion in the forum
+The values chosen for N and dt are 12 and 0.1, respectively. I choose these values after reading some discussions and by try and error.
 
 - **Polynomial Fitting and MPC Preprocessing**: *A polynomial is fitted to waypoints. If the student preprocesses waypoints, the vehicle state, and/or actuators prior to the MPC procedure it is described.*
 
